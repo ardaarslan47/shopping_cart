@@ -1,13 +1,14 @@
-#include "kasa.h"
+#include "gunSonu.h"
 
-void UrunSat(Urun &satilacakUrun, Kasa &urunKasa)
+void UrunSat(Urun &satilacakUrun, Kasa &urunKasa, GunSonuIslemleri &gunsonu, int secilenUrunSirasi)
 {
     float nakitMiktar;
     float nakitMiktar2;
 
     if (satilacakUrun.stokSayisiOku() > 0)
     {
-        std::cout << "Lutfen " << satilacakUrun.fiyatOku() << "tl atiniz.(Islemi iptal etmek icin 0 tuslayin)\n"
+        std::cout << "Lutfen " << satilacakUrun.fiyatOku()
+                  << "tl atiniz.(Islemi iptal etmek icin 0 tuslayin)\n"
                   << "Nakit: ";
         std::cin >> nakitMiktar;
 
@@ -19,7 +20,8 @@ void UrunSat(Urun &satilacakUrun, Kasa &urunKasa)
 
         while (nakitMiktar < satilacakUrun.fiyatOku())
         {
-            std::cout << "Lutfen " << satilacakUrun.fiyatOku() - nakitMiktar << "tl daha atiniz.(Islemi iptal etmek icin 0 tuslayin)\n"
+            std::cout << "Lutfen " << satilacakUrun.fiyatOku() - nakitMiktar
+                      << "tl daha atiniz.(Islemi iptal etmek icin 0 tuslayin)\n"
                       << "Nakit: ";
             std::cin >> nakitMiktar2;
             if (nakitMiktar2 == 0)
@@ -38,6 +40,7 @@ void UrunSat(Urun &satilacakUrun, Kasa &urunKasa)
             std::cout << "Para ustu: " << nakitMiktar - satilacakUrun.fiyatOku() << "tl aliniz.\n";
         }
         urunKasa.odemeAl(satilacakUrun);
+        gunsonu.urunEkle(secilenUrunSirasi);
     }
     else
     {
@@ -45,7 +48,7 @@ void UrunSat(Urun &satilacakUrun, Kasa &urunKasa)
     }
 }
 
-void anaSayfa(Urun *urunListesi[], int urunSayisi)
+void anaSayfa(const std::vector<Urun *> &urunListesi, int urunSayisi)
 {
     std::cout << "\n====HOSGELDINIZ====\n"
               << "Satin almak istediginiz urunun yanindaki sayiyi giriniz.\n";
